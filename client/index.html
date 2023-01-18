@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Back End Assessment</title>
+  </head>
+  <body class="container">
+    <button id="fortuneButton">Get a fortune</button>
+    <button id="complimentButton">Get a compliment</button>
+  </br></br>
+
+
+<div>
+      <label for="cars">Choose city:</label>
+      <select name="city" id="city">
+          <option value="Washington, DC">Washington, DC</option>
+          <option value="New York">New York</option>
+          <option value="Los Angeles">Los Angeles</option>
+          <option value="Chicago">Chicago</option>
+      </select>
+      <input type="submit" value="Submit">
+
+  
+  
+    </form>
+    </div> </br>
+
+    <section id="list-container">
+      <form>
+        <input type="text" placeholder="Enter name here.." id="name-input">
+        <button onclick="submitName()">Submit </button>
+      </form>
+      <ul>
+        Names List:
+      </ul>
+    </section>
+
+  
+    <p>Choose your preferred contact:</p>
+
+<input type="radio" name="contact" value="email">Email
+<input type="radio" name="contact" value="phone">Phone
+
+
+<button type="contact-button" onclick="displayRadioValue()">
+  Submit</button>
+
+  <div id="result"></div>
+
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script src="main.js"></script>
+    
+  </body>
+</html>
