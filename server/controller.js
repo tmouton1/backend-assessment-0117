@@ -19,7 +19,7 @@ module.exports = {
       
         res.status(200).send(randomCompliment);
     },
-
+// ============================================================
     getNameList: (req,res) => {
         res.status(200).send(namesList);
     },
@@ -27,8 +27,14 @@ module.exports = {
     submitName: (req,res) => {
         console.log(req.body)
         let {name} = req.body
+        let newName = {
+            // id:newID,
+            name
+        }
         namesList.push(name)
         res.status(200).send(namesList)
+
+        // newID++
 
     },
     deleteName: (req, res) => {
@@ -36,12 +42,7 @@ module.exports = {
         namesList.splice(index,1)
         res.status(200).send(namesList)
     
-          
-        },
-
-    displayRadioValue: (req,res) => {
-        const confirmation = ["Thank you for your selection."]
-        res.status(200).send(confirmation);
+        
 
     }
 

@@ -12,10 +12,10 @@ const { getFortune, getCompliment, getNameList, submitName, deleteName,displayRa
 
 app.get('/api/fortune', getFortune)
 app.get('/api/compliment', getCompliment)
-app.get('/api/users', getNameList)
+app.get('/api/name', getNameList)
 app.post('/api/name', submitName)
 app.delete('/api/name/:id', deleteName)
-app.post('/api/radio', displayRadioValue)
+
 
 
 app.listen(4000, () => console.log("Server running on 4000"))
