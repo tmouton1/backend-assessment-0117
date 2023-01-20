@@ -1,5 +1,5 @@
-let namesList = []
 
+const database = require('./db.json')
 module.exports = {
 
     getFortune: (req,res) => {
@@ -20,30 +20,27 @@ module.exports = {
         res.status(200).send(randomCompliment);
     },
 // ============================================================
-    getNameList: (req,res) => {
-        res.status(200).send(namesList);
-    },
+
     
     submitName: (req,res) => {
         console.log(req.body)
         let {name} = req.body
         let newName = {
-            // id:newID,
             name
         }
-        namesList.push(name)
-        res.status(200).send(namesList)
-
-        // newID++
-
+        database.push(name)
+        res.status(200).send(`Welcome, ${name}! It's great to have you!`)
+        console.log(name)
+      
     },
-    deleteName: (req, res) => {
-        let { index } = req.params
-        namesList.splice(index,1)
-        res.status(200).send(namesList)
-    
-        
 
-    }
+deleteName: (req,res) => {
+    let {id} = req.params
+    let index = database.findIndex(namesObj => namesObj.id === +id)
+    database.splice(index,1)
+    res.status(200).send(database)
 
-};
+}
+
+}
+// ========================================

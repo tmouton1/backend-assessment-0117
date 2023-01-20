@@ -1,9 +1,15 @@
-const listContainer = document.querySelector('#list-container')
-const form = document.querySelector('form')
-// const nameInput = document.querySelector('#name-input')
-const namesCallback = ({ data: names }) => displaynames(names)
+const nameInput = document.querySelector('#name-input')
+const submitForm = document.querySelector('#submit-form')
+const nameList = document.querySelector('#name-container')
 
- 
+
+// ========================
+
+const namesContainer = document.querySelector('#name-container')
+const namesCallback = ({ data:name }) => displayNames(name)
+
+// ========================
+
 const fortuneBtn = document.getElementById("fortuneButton")
 
 const getFortune = () => {
@@ -29,92 +35,58 @@ complimentBtn.addEventListener('click', getCompliment)
 
 
 
-const createList = arr => {
-    list.innerHTML = 'Names List:'
-    arr.forEach((name,index) => {
-        list.innerHTML = 'Names List:'
-        
-            let listItem = document.createElement('li')
-            let nameSpan = document.createElement('span')
-            let deleteButton = document.createElement('button')
-            let cityItem = document.
-            listItem.appendChild(nameSpan)
-            listItem.appendChild(deleteButton)
-            
-            nameSpan.textContent = name
-            deleteButton.textContent = "delete"
-            deleteButton.id = index
-
-            deleteButton.addEventListener('click', deleteName )
-
-            list.appendChild(listItem)       
-        }) 
-}
-
-const getNameList = () => {
-    axios.get('http://localhost:4000/api/users')
-    .then(namesCallback)
+    const submitName = body =>axios.post('http://localhost:4000/api/name', body).then(() => {namesCallback})
     .catch(err => console.log(err))
-
-    const submitName = body =>axios.post('http://localhost:4000/api/name', body).then(namesCallback).catch(err => console.log(err))
-
-    const deleteName = id =>axios.delete(`http//localhost:4000/api/name/${id}`).then(namesCallback).catch(err => console.log(err))
 
     function submitHandler(e) {
         e.preventDefault()
-
         let name = document.querySelector('#name-input')
         
         let bodyObj = {
             name:name.value
         }
-
         submitName(bodyObj)
+        console.log(bodyObj)
+
 
         name.value = ''
     }
 
-    function displayNames(arr) {
-        namesContainer.innerHTML = ``
-        for(let i =0; i<arr.length; i++) {
-            addNameCard(arr[i])
-        }
-    }
-form.addEventListener('submit',submitHandler)
-}
+   
+// =====================
 
-getNameList()
+
+function submitNameCard(name) {
+    const nameCard = document.createElement('div')
+    nameCard.classList.add('name-card')
+    nameCard.innerHTML = `
+    <div class=btns-container">
+    <p class="name-value">${name.id}</p>
+    <button id="deleteButton" onclick="deleteName(${name.id})">delete</button>
+     `
+     namesContainer.appendChild(nameCard)
+}
+     function displayNames(arr) {
+        namesContainer.innerHTML = ``
+        for(let i =  0; i < arr.length; i++) {
+            submitNameCard(arr[i])
+        }}
+
+        function deleteName(id) {
+            axios.delete(`http://localhost:4000/api/name/${id}`)
+                .then(() => displayNames())
+                .catch(err => console.log(err))
+        }
+        
+// =====================
+
+
+
+submitForm.addEventListener('submit', submitHandler)
+submitForm.addEventListener('submit', displayNames)
+submitForm.addEventListener('submit', submitNameCard)
+submitForm.addEventListener('submit', submitName)
+
 
 console.log(submitName)
-
-// const submitName = evt => {
-//     evt.preventDefault()
-//     axios.post('http://localhost:4000/api/name', {name: nameInput.value})
-//     .then(response => {
-//         let { data } = response
-//         createList(data)
-        
-//           })
-//           .catch(err => console.log(err))
-// }
-// }
-// form.addEventListener('submit', submitName)
-
-
-// const deleteName = evt => {
-//     console.log(evt.target)
-//     axios.delete(`http://localhost:4000/api/name/${evt.target.id}`)
-//     .then(response => {
-//         let { data } = response
-//         createList(data)
-
-//     })
-//     .catch(err => console.log(err))
-// }
-// form.addEventListener('delete', deleteName)
-
-
-
-// getNameList()
-
 
